@@ -1,0 +1,332 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Leb}{\mathcal{L}}
+\newcommand{\nodef}{\triangle}
+
+\hypersetup{pdftitle={Uniqueness of stable allocations in dimensions one and two},pdfauthor={Yitzchak Shmalo}}
+
+\title[Stable allocations in dimensions one and two]{Uniqueness of stable allocations in dimensions one and two}
+\author{Yitzchak Shmalo}
+\address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yitzchak.shmalo@gmail.com}
+\date{November 2026}
+\subjclass[2020]{60D05, 05C70, 60J10, 91B68}
+\keywords{stable allocation, stable marriage, Gale--Shapley algorithm, fair allocation, recurrence, Nash-Williams criterion}
+
+\begin{document}
+
+\begin{abstract}
+Let $\Xi$ be a locally finite set of centres in $\R^d$ and let $\alpha\in(0,\infty)$. Hoffman, Holroyd and Peres proved that Lebesgue measure on $\R^d$ has a stable allocation to $\Xi$ with appetite $\alpha$, that it is unique up to null sets when the graphs joining centres at bounded distance are recurrent, and that it is almost surely unique when $\Xi$ comes from a translation-invariant point process. They asked whether some discrete set of centres admits two stable allocations that differ on a set of positive measure. We show that no such set exists in dimensions one and two: for every locally finite $\Xi\subset\R^d$ with $d\le 2$ and every $\alpha\in(0,\infty)$ the stable allocation is unique up to null sets, with no condition on the growth or the local density of $\Xi$. In every dimension the stable allocation is unique when the number of centres within distance $r$ of the origin grows at most slightly faster than $r^2$, for example as $r^2\log r\log\log r$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Let $\Leb$ be Lebesgue measure on $\R^d$ and let $\Xi\subset\R^d$ be \emph{locally finite}, that is, every bounded set contains finitely many points of $\Xi$. The points of $\Xi$ are \emph{centres} and the points of $\R^d$ are \emph{sites}. Fix an \emph{appetite} $\alpha\in(0,\infty)$. Following Hoffman, Holroyd and Peres~\cite{HHP}, an \emph{allocation} is a measurable map $\psi\colon\R^d\to\Xi\cup\{\infty,\nodef\}$ with $\Leb(\psi^{-1}(\nodef))=0$ and $\Leb(\psi^{-1}(\xi))\le\alpha$ for every $\xi\in\Xi$. The set $\psi^{-1}(\xi)$ is the \emph{territory} of $\xi$; the centre $\xi$ is \emph{sated} if $\Leb(\psi^{-1}(\xi))=\alpha$ and \emph{unsated} otherwise; a site $x$ is \emph{unclaimed} if $\psi(x)=\infty$, and the value $\nodef$ marks a null set of sites on which $\psi$ is undefined. We write $|x-\infty|=\infty$.
+
+For a centre $\xi$ and a site $x$ with $\psi(x)\notin\{\xi,\nodef\}$, the site $x$ \emph{desires} $\xi$ if $|x-\xi|<|x-\psi(x)|$, and $\xi$ \emph{covets} $x$ if $|x-\xi|<|x'-\xi|$ for some $x'\in\psi^{-1}(\xi)$ or $\xi$ is unsated. The pair $(x,\xi)$ is \emph{unstable} if $x$ desires $\xi$ and $\xi$ covets $x$, and $\psi$ is \emph{stable} if there is no unstable pair. This is the continuum version of the stability notion of Gale and Shapley~\cite{GS}: every site and every centre prefers to be allocated as close as possible.
+
+Hoffman, Holroyd and Peres~\cite{HHP} proved the following.
+\begin{itemize}
+\item Existence \cite[Theorem~1]{HHP}: for every locally finite $\Xi$ and every $\alpha$ a stable allocation exists.
+\item Uniqueness on recurrent graphs \cite[Theorem~2]{HHP}: let $G_b$ be the graph on $\Xi$ joining two centres when their distance is at most $b$. If $G_b$ is recurrent for simple random walk for every $b>0$, then for every $\alpha\in(0,\infty)$ the stable allocation is unique up to null sets.
+\item Uniqueness for stationary centres \cite[Theorem~3]{HHP}: if $\Xi$ is the support of a translation-invariant simple point process of finite intensity, then almost surely, for every fixed $\alpha\in(0,\infty)$, the stable allocation is unique up to null sets.
+\end{itemize}
+By Remark~(vi) of~\cite{HHP} and a criterion of Woess~\cite[Corollary~3.52]{Woess}, the hypothesis of Theorem~2 holds when, for every $b$, the number of unordered pairs of centres in $B(0,r)$ at distance less than $b$ is $O(r^2\log r)$. Among the open problems at the end of~\cite{HHP} is the following \cite[Section~7, problem~(i)]{HHP}: does there exist a discrete set of centres in $\R^d$ that admits two stable allocations differing on a set of positive measure? By Theorems~2 and~3 such a set must grow faster than quadratically and cannot come from a translation-invariant point process. Hoffman, Holroyd and Peres~\cite{HHP09} later bounded the tail of the distance from a site to its centre for Poisson centres, and Freire, Popov and Vachkovskaia~\cite{FPV} studied percolation of the territories. Haji-Mirsadeghi and Khezeli~\cite{HMK} extended stable allocation to stable transports between stationary random measures, with a uniqueness theorem under stationarity. Other translation-invariant allocation rules, such as the extra-head schemes of Holroyd and Peres~\cite{HP05} and gravitational allocation~\cite{CPPR}, are compared with stable allocation in those papers. Each of these uniqueness statements assumes that the centres form a stationary process, and problem~(i) for deterministic sets of centres was left open.
+
+For $r>0$ write $B(z,r)$ and $\overline B(z,r)$ for the open and the closed ball of radius $r$ about $z$, $\omega_d$ for the volume of the unit ball, $\#E$ for the number of elements of a finite set $E$, and
+\[
+N(r)=\#\bigl(\Xi\cap B(0,r)\bigr).
+\]
+A table of notation is in Appendix~\ref{app:notation}.
+
+\begin{theorem}\label{thm:main}
+Let $d\in\{1,2\}$, let $\Xi\subset\R^d$ be locally finite and let $\alpha\in(0,\infty)$. Any two stable allocations of $\R^d$ to $\Xi$ with appetite $\alpha$ agree $\Leb$-almost everywhere.
+\end{theorem}
+
+\begin{theorem}\label{thm:growth}
+Let $d\ge1$, let $\Xi\subset\R^d$ be locally finite and let $\alpha\in(0,\infty)$. If
+\begin{equation}\label{eq:growth}
+\sum_{k\ge1}\frac{4^k}{1+N(2^k)}=\infty,
+\end{equation}
+then any two stable allocations of $\R^d$ to $\Xi$ with appetite $\alpha$ agree $\Leb$-almost everywhere.
+\end{theorem}
+
+\begin{corollary}\label{cor:growth}
+In every dimension, the stable allocation is unique up to null sets if $N(r)=O(r^2\log r\log\log r)$ as $r\to\infty$.
+\end{corollary}
+
+\begin{proof}
+For large $k$ the terms of \eqref{eq:growth} are at least a constant times $1/(k\log k)$, whose sum diverges.
+\end{proof}
+
+Theorem~\ref{thm:main} answers problem~(i) of~\cite{HHP} in dimensions one and two: no locally finite set of centres in $\R$ or $\R^2$ has two stable allocations. Theorem~\ref{thm:growth} counts centres, whereas the condition of~\cite[Theorem~2]{HHP} concerns the graphs $G_b$, and these can be transient even when $N(r)$ grows quadratically; see Remark~\ref{rem:transient}. Problem~(i) remains open in dimensions $d\ge3$.
+
+The proof follows the proof of~\cite[Theorem~2]{HHP}. There, two distinct stable allocations produce a directed graph on the centres that carries capacities, and \cite[Proposition~13]{HHP} shows that such a graph is transient; since it is a subgraph of some $G_b$, recurrence of $G_b$ gives a contradiction. We build the graph from the two extremal stable allocations of~\cite[Lemma~15]{HHP}: the one every site prefers to every other stable allocation and the one every centre prefers, in the sense of Lemma~\ref{lem:extremal} below. Every vertex of the part of this graph reachable from a fixed edge, other than its first vertex, is a sated centre whose territory under the centre-preferred allocation lies within a fixed distance of the centre. These territories are disjoint and each has volume $\alpha$, so the reachable part has at most $O(r^d)$ vertices in a ball of radius $r$, however dense $\Xi$ is. For $d\le2$ the Nash-Williams criterion then shows that this graph is recurrent, which contradicts transience.
+
+Section~\ref{sec:prelim} collects what we use from~\cite{HHP}, Section~\ref{sec:graph} builds the graph and proves the packing bound, and Section~\ref{sec:proofs} proves the theorems.
+
+\section{Extremal stable allocations}\label{sec:prelim}
+
+For an allocation $\psi$, a site $x$ with $\psi(x)\ne\nodef$, a centre $\xi$ and $r\in[0,\infty]$, put
+\[
+g_x(\psi,r)=\mathbf 1\bigl[|x-\psi(x)|<r\bigr],\qquad h_\xi(\psi,r)=\Leb\bigl(\psi^{-1}(\xi)\cap B(\xi,r)\bigr),
+\]
+with $B(\xi,\infty)=\R^d$. Let $W$ be the set of sites equidistant from two distinct centres. Since $\Xi$ is countable, $W$ is a countable union of hyperplanes and $\Leb(W)=0$.
+
+\begin{lemma}[{\cite[Theorem~1, Lemmas~14 and~15]{HHP}}]\label{lem:extremal}
+There are stable allocations $s$ and $c$, obtained from the Gale--Shapley procedure with sites proposing and with centres proposing respectively, such that for every stable allocation $\psi$ and every $r\in[0,\infty]$,
+\begin{align}
+g_x(s,r)&\ge g_x(\psi,r)\ge g_x(c,r)\quad\text{for $\Leb$-a.e.\ site $x$},\label{eq:sites}\\
+h_\xi(c,r)&\ge h_\xi(\psi,r)\ge h_\xi(s,r)\quad\text{for every centre $\xi$}.\label{eq:centres}
+\end{align}
+\end{lemma}
+
+We call $s$ the site-preferred and $c$ the centre-preferred stable allocation. The inequalities of Lemma~\ref{lem:extremal} hold for every locally finite $\Xi$; they use neither recurrence nor stationarity.
+
+\begin{lemma}\label{lem:sandwich}
+If $s=c$ $\Leb$-almost everywhere, then every stable allocation agrees with $s$ $\Leb$-almost everywhere.
+\end{lemma}
+
+\begin{proof}
+Let $\psi$ be stable. Applying \eqref{eq:sites} for each rational radius $r>0$ and taking the union of the countably many exceptional null sets, together with $W$, the set where $s\ne c$ and the sets where $s$, $c$ or $\psi$ takes the value $\nodef$, we obtain a null set $Z$ such that for $x\notin Z$ and every rational radius $r$ we have $g_x(s,r)=g_x(\psi,r)$. Hence $|x-\psi(x)|=|x-s(x)|$ for $x\notin Z$. If this distance is infinite, both allocations leave $x$ unclaimed; otherwise both send $x$ to a centre at that distance, and since $x\notin W$ there is only one such centre.
+\end{proof}
+
+For the rest of the paper fix a locally finite $\Xi\subset\R^d$, an appetite $\alpha\in(0,\infty)$ and the allocations $s$ and $c$ of Lemma~\ref{lem:extremal}, and suppose that $s$ and $c$ differ on a set of positive measure. We show that this is impossible under the hypotheses of Theorems~\ref{thm:main} and~\ref{thm:growth}.
+
+\section{The disagreement graph}\label{sec:graph}
+
+Let $Z_0$ be the null set consisting of $W$, the sites where $s$ or $c$ takes the value $\nodef$, and the sites where \eqref{eq:sites} fails for $\psi\in\{s,c\}$ and some rational $r$. All sets of sites below are taken outside $Z_0$. For a centre $v$ let
+\[
+S_v=s^{-1}(v),\qquad C_v=c^{-1}(v),\qquad A_v=S_v\setminus C_v,\qquad B_v=C_v\setminus S_v,
+\]
+and for distinct centres $u,v$ let
+\[
+Q(u,v)=C_u\cap S_v,\qquad q(u,v)=\Leb\bigl(Q(u,v)\bigr).
+\]
+Let $\Gamma$ be the directed graph on $\Xi$ with an edge from $u$ to $v$ whenever $q(u,v)>0$.
+
+\begin{lemma}\label{lem:balance}
+For every centre $u$,
+\begin{equation}\label{eq:balance}
+\sum_{w}q(w,u)\le\Leb(A_u)\le\Leb(B_u)=\sum_{v}q(u,v).
+\end{equation}
+Moreover $\Gamma$ has at least one edge.
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:sites} with $\psi=c$ at rational radii, every site $x$ satisfies $|x-s(x)|\le|x-c(x)|$. Let $x\in B_u$. Then $|x-s(x)|\le|x-u|<\infty$, so $x$ is claimed under $s$ by a centre $s(x)\ne u$. Hence $B_u$ is the disjoint union of the sets $Q(u,v)$, $v\ne u$, which gives the equality in \eqref{eq:balance}. The sets $Q(w,u)$, $w\ne u$, are disjoint subsets of $A_u$, which gives the first inequality. By \eqref{eq:centres} with $\psi=s$ and $r=\infty$ we have $\Leb(C_u)\ge\Leb(S_u)$; subtracting $\Leb(C_u\cap S_u)\le\alpha$ from both sides gives $\Leb(B_u)\ge\Leb(A_u)$.
+
+Suppose $s\ne c$ on a set of positive measure. Sites claimed under $c$ are claimed under $s$, so outside a null set either $s(x)$ and $c(x)$ are two distinct centres, or $c(x)=\infty$ and $s(x)$ is a centre. If the first set has positive measure, it is the countable union of the sets $Q(u,v)$, so some $q(u,v)>0$. Otherwise the second set has positive measure, so $\Leb(A_v)>0$ for some $v$, hence $\Leb(B_v)>0$ by \eqref{eq:balance}, and again some $q(v,w)>0$.
+\end{proof}
+
+For a centre $v$ let
+\[
+T_v=\operatorname*{ess\,sup}_{y\in C_v}|y-v|\in[0,\infty],
+\]
+with $T_v=0$ when $\Leb(C_v)=0$. This is the radius of the territory of $v$ under $c$.
+
+\begin{lemma}\label{lem:radii}
+If $q(u,v)>0$, then $v$ is sated under $c$, and
+\begin{equation}\label{eq:radii}
+T_v\le|x-v|<|x-u|\le T_u\qquad\text{for $\Leb$-a.e.\ } x\in Q(u,v).
+\end{equation}
+In particular $T_v<T_u$, the graph $\Gamma$ has no directed cycle, and if $T_u<\infty$ then
+\begin{equation}\label{eq:shell}
+q(u,v)\le\omega_d\bigl(T_u^d-T_v^d\bigr).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let $x\in Q(u,v)$. Then $c(x)=u$ and $s(x)=v$, and $|x-v|<|x-u|$ because $|x-s(x)|\le|x-c(x)|$ and $x\notin W$. So under $c$ the site $x$ desires $v$. Since $c$ is stable, $v$ does not covet $x$: $v$ is sated under $c$ and $|x'-v|\le|x-v|$ for every $x'\in C_v$. Thus $T_v\le|x-v|$. For almost every $x\in C_u$ we have $|x-u|\le T_u$, which proves \eqref{eq:radii}. Since $q(u,v)>0$ we may pick such an $x$, so $T_v<T_u$; around a directed cycle these radii would decrease strictly, which is impossible. By \eqref{eq:radii}, almost every point of $Q(u,v)$ lies in $\{x:T_v<|x-u|\le T_u\}$, whose volume is $\omega_d(T_u^d-T_v^d)$.
+\end{proof}
+
+By Lemma~\ref{lem:balance} we may fix an edge $(\rho,v_0)$ of $\Gamma$ and put $m=q(\rho,v_0)>0$. Let $V_0$ be the set of centres that can be reached from $v_0$ by a directed path in $\Gamma$, including $v_0$ itself. Let $H$ be the directed graph with vertex set $V_0\cup\{\rho\}$ whose edges are $(\rho,v_0)$ and every edge of $\Gamma$ that starts in $V_0$. Every such edge ends in $V_0$, so $H$ contains all edges of $\Gamma$ leaving each vertex of $V_0$. Since $\Gamma$ has no directed cycle, $\rho\notin V_0$ and no edge of $H$ enters $\rho$. Put
+\[
+R=T_{v_0}.
+\]
+By Lemma~\ref{lem:radii}, $R<\infty$, every $v\in V_0$ is sated under $c$ (it is $v_0$ or the end of an edge of $\Gamma$), and $T_v\le R$ for every $v\in V_0$, since the radii decrease along directed paths. If $(u,v)$ is an edge of $H$ with $u\in V_0$, then for some $x$ as in \eqref{eq:radii}, $|u-v|\le|u-x|+|x-v|<2|x-u|\le2T_u\le2R$. Hence every edge of $H$ has length at most
+\[
+\ell=\max\bigl(2R,|\rho-v_0|\bigr).
+\]
+
+\begin{lemma}\label{lem:packing}
+For every $z\in\R^d$ and $r>0$,
+\begin{equation}\label{eq:packing}
+\#\bigl(V_0\cap \overline B(z,r)\bigr)\le\frac{\omega_d(r+R)^d}{\alpha}.
+\end{equation}
+Consequently every vertex of $H$ has degree at most $D=1+\omega_d(\ell+R)^d/\alpha$ in the undirected graph underlying $H$, and $N_H(r)=\#\bigl((V_0\cup\{\rho\})\cap B(0,r)\bigr)$ satisfies $N_H(r)\le1+\omega_d(r+R)^d/\alpha$ and $N_H(r)\le N(r)$.
+\end{lemma}
+
+\begin{proof}
+Each $v\in V_0$ is sated under $c$, so $\Leb(C_v)=\alpha$, and up to a null set $C_v\subset\overline{B}(v,T_v)\subset\overline{B}(v,R)$. The territories $C_v$ are disjoint. If $v\in\overline B(z,r)$, then $C_v$ lies, up to a null set, in $\overline{B}(z,r+R)$, whose volume is $\omega_d(r+R)^d$; adding the volumes $\Leb(C_v)=\alpha$ gives \eqref{eq:packing}. The neighbours of a vertex $u$ lie in $\overline B(u,\ell)$; at most one of them is $\rho$, and the others lie in $V_0$, so by \eqref{eq:packing} with $z=u$ and $r=\ell$ their number is at most $\omega_d(\ell+R)^d/\alpha$. The bounds on $N_H$ follow from \eqref{eq:packing} and from $V_0\cup\{\rho\}\subset\Xi$.
+\end{proof}
+
+The point of Lemma~\ref{lem:packing} is that it bounds the density of the vertices of $H$, not of $\Xi$: however many centres $\Xi$ places in a bounded region, only boundedly many of them can belong to $H$.
+
+\section{Proofs of the theorems}\label{sec:proofs}
+
+We use Proposition~13 of~\cite{HHP}, which we state in our notation.
+
+\begin{proposition}[{\cite[Proposition~13]{HHP}}]\label{prop:HHP}
+Let $H$ be a locally finite directed graph with no directed cycle and a distinguished vertex $\rho$. Let $q$ be a nonnegative function on its edges, the capacity, with the following properties.
+\begin{enumerate}
+\item[(i)] At every vertex $v\ne\rho$, the total capacity of the edges entering $v$ is at most the total capacity of the edges leaving $v$.
+\item[(ii)] No edge enters $\rho$, and the edges leaving $\rho$ have positive total capacity.
+\item[(iii)] There is $K<\infty$ with $\sum_{i\ge0}q(u_i,u_{i+1})\le K$ for every directed path $(u_0,u_1,\dots)$ with $u_0=\rho$.
+\end{enumerate}
+Then simple random walk on the undirected graph underlying $H$ is transient.
+\end{proposition}
+
+\begin{lemma}\label{lem:transient}
+Simple random walk on the undirected graph underlying $H$ is transient.
+\end{lemma}
+
+\begin{proof}
+The graph $H$ is locally finite by Lemma~\ref{lem:packing} and has no directed cycle by Lemma~\ref{lem:radii}. We check the conditions of Proposition~\ref{prop:HHP} with the capacities $q$ restricted to the edges of $H$. For $v\in V_0$, the edges of $H$ entering $v$ are among the edges of $\Gamma$ entering $v$, and all edges of $\Gamma$ leaving $v$ belong to $H$; so (i) follows from \eqref{eq:balance}. Condition (ii) holds because no edge of $H$ enters $\rho$, the only edge leaving $\rho$ is $(\rho,v_0)$, and $q(\rho,v_0)=m>0$. For (iii), a directed path from $\rho$ has the form $(\rho,u_1,u_2,\dots)$ with $u_1=v_0$ and $u_i\in V_0$ for $i\ge1$, and by \eqref{eq:shell} the sum telescopes:
+\[
+\sum_{i\ge0}q(u_i,u_{i+1})\le m+\omega_d\sum_{i\ge1}\bigl(T_{u_i}^d-T_{u_{i+1}}^d\bigr)\le m+\omega_dR^d .
+\]
+Hence Proposition~\ref{prop:HHP} applies with $K=m+\omega_dR^d$.
+\end{proof}
+
+The other half of the argument is a recurrence criterion for graphs in $\R^d$ with short edges and bounded degrees.
+
+\begin{lemma}\label{lem:recurrent}
+Let $G$ be a connected graph whose vertices are distinct points of $\R^d$, whose edges have length at most $\ell$ and whose degrees are at most $D$, and assume that every ball contains finitely many vertices. Let $N_G(r)$ be the number of vertices in $B(0,r)$. If
+\begin{equation}\label{eq:NW}
+\sum_{k\ge1}\frac{4^k}{1+N_G(2^{k+1})}=\infty,
+\end{equation}
+then simple random walk on $G$ is recurrent.
+\end{lemma}
+
+\begin{proof}
+Fix a vertex $a$ and put $r_j=(\ell+1)j$ for $j\ge1$. Let $\Pi_j$ be the set of edges $\{x,y\}$ of $G$ with $|x|<r_j\le|y|$. For $r_j>|a|$, every infinite path in $G$ starting at $a$ leaves the finite set of vertices in $B(0,r_j)$ and therefore uses an edge of $\Pi_j$, so $\Pi_j$ separates $a$ from infinity. Each $\Pi_j$ is finite, and the sets $\Pi_j$ are pairwise disjoint because an edge has length at most $\ell<r_{j+1}-r_j$. By the Nash-Williams criterion~\cite{NW}, \cite[Section~2.5, (2.14)]{LyonsPeres} with unit conductances, it suffices to show that $\sum_j1/|\Pi_j|=\infty$. (If some $\Pi_j$ with $r_j>|a|$ is empty, the component of $a$ is finite and the walk is recurrent.)
+
+Let $J_k$ be the set of $j$ with $2^k\le r_j<2^{k+1}$ and $r_j>|a|$. For large $k$ we have $\#J_k\ge2^k/(2(\ell+1))$. Every edge in $\Pi_j$ with $j\in J_k$ has an endpoint in $B(0,2^{k+1})$, each such endpoint carries at most $D$ edges, and the sets $\Pi_j$ are disjoint, so $\sum_{j\in J_k}|\Pi_j|\le D\,N_G(2^{k+1})$. By the Cauchy--Schwarz inequality,
+\[
+\sum_{j\in J_k}\frac1{|\Pi_j|}\ge\frac{(\#J_k)^2}{\sum_{j\in J_k}|\Pi_j|}\ge\frac{4^k}{4(\ell+1)^2D\,(1+N_G(2^{k+1}))}
+\]
+for large $k$. The sets $J_k$ are disjoint, so \eqref{eq:NW} gives $\sum_j1/|\Pi_j|=\infty$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:growth}]
+Suppose that $s$ and $c$ differ on a set of positive measure and build $H$ as in Section~\ref{sec:graph}. Its underlying undirected graph is connected, since every vertex is reached from $\rho$, and by Lemma~\ref{lem:packing} it satisfies the hypotheses of Lemma~\ref{lem:recurrent} with $N_H\le N$. Since
+\[
+\sum_{k\ge1}\frac{4^k}{1+N(2^{k+1})}=\frac14\sum_{k\ge2}\frac{4^{k}}{1+N(2^{k})},
+\]
+condition~\eqref{eq:growth} implies \eqref{eq:NW} for $H$, so $H$ is recurrent. This contradicts Lemma~\ref{lem:transient}. Hence $s=c$ almost everywhere, and Lemma~\ref{lem:sandwich} shows that every stable allocation agrees with $s$ almost everywhere.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Argue as in the proof of Theorem~\ref{thm:growth}, but use the bound $N_H(r)\le1+\omega_d(r+R)^d/\alpha$ of Lemma~\ref{lem:packing} in place of $N_H\le N$. For $d\le2$ this gives $N_H(2^{k+1})\le C_0\,4^k$ for all $k\ge1$, where $C_0=1+\omega_d(2+R)^d/\alpha$ does not depend on $k$, so every term of \eqref{eq:NW} for $H$ is at least $1/(1+C_0)$ and the series diverges. Thus $H$ is recurrent, which again contradicts Lemma~\ref{lem:transient}, and the theorem follows from Lemma~\ref{lem:sandwich}.
+\end{proof}
+
+\begin{remark}\label{rem:transient}
+Theorem~\ref{thm:main} applies to sets of centres for which the hypothesis of~\cite[Theorem~2]{HHP} fails, already in dimension one. Let
+\[
+C_n=\Bigl\{n+\frac{j}{10n}:0\le j<n\Bigr\},\qquad\Xi_0=\bigcup_{n\ge1}C_n\subset\R .
+\]
+Then $\Xi_0$ is locally finite and $N(r)/r^2\to1/2$ as $r\to\infty$. In $G_2$ every point of $C_n$ is joined to every point of $C_{n+1}$. Sending flow $1/(n(n+1))$ along each of the $n(n+1)$ edges from $C_n$ to $C_{n+1}$ gives a unit flow from the point of $C_1$ to infinity: each point of $C_n$ with $n\ge2$ receives $1/n$ and sends $1/n$. Its energy is $\sum_{n\ge1}n(n+1)\cdot(n(n+1))^{-2}=1$, so $G_2$ is transient by the criterion of T.~Lyons~\cite{Lyons}. The edge count in~\cite[Remark~(vi)]{HHP} also fails, since the edges inside the sets $C_n$ with $n<r$ alone number $\sum_{n<r}\binom n2$, which is at least a constant times $r^3$. Corollary~\ref{cor:growth} applies to $\Xi_0$ in every dimension in which it is placed.
+\end{remark}
+
+\begin{remark}\label{rem:higher}
+For $d\ge3$, Lemma~\ref{lem:packing} gives only $N_H(r)=O(r^d)$, and graphs of this growth can be transient. A counterexample to uniqueness in $\R^d$, $d\ge3$, would therefore need a pair of stable allocations whose disagreement graph $H$, which has bounded degree and density, is transient and violates~\eqref{eq:growth}; by Theorem~\ref{thm:growth} the set of centres must then satisfy $\sum_k4^k/(1+N(2^k))<\infty$. For a finite set of centres the graph $H$ is finite, so it cannot be transient, and the stable allocation is unique; in particular no computation on a finite configuration can exhibit nonuniqueness.
+\end{remark}
+
+\section*{Acknowledgements and funding}
+The research presented in this paper was supported by the European Research
+Council (ERC) under the European Union's Horizon Europe research and
+innovation program (grant agreement No.~101041711), by the Simons
+Foundation as part of the Collaboration on the Mathematical and Scientific
+Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by
+the Israel Science Foundation (grant number 2258/19), and by the Israel
+Science Foundation (ISF Grant 4101/25). Computational resources were
+provided in part by Google Cloud through its education credits program
+(credit 530550103).
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. For more on the details behind the Brain and Math Brain, see the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework repository~\cite{BrainFramework}.
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and
+has a management role at Convex Nexus Capital. These entities are included
+in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The paper comes out of Math Brain, an ongoing project on the use of AI systems for research mathematics. In November 2026 Codex (OpenAI, GPT-6.1) found the proofs of Theorems~\ref{thm:main} and~\ref{thm:growth}, a second Codex instance reviewed the proofs, and Claude Opus~5.5 (Anthropic), working in Claude Code, wrote the paper. The author directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\section*{Data availability}
+No data were generated or analysed. The \LaTeX{} source of the paper is available at \url{https://github.com/yspennstate/stable-allocation-uniqueness}.
+
+\appendix
+\section{Notation}\label{app:notation}
+Symbols are listed in the order in which they first appear.
+
+\begin{center}\small
+\begin{tabular}{@{}lp{0.62\textwidth}l@{}}\toprule
+Symbol & Meaning & First appears \\ \midrule
+$\Leb$ & Lebesgue measure on $\R^d$ & Section~\ref{sec:intro} \\
+$\Xi$ & the locally finite set of centres & Section~\ref{sec:intro} \\
+$\alpha$ & the appetite, the largest measure of a territory & Section~\ref{sec:intro} \\
+$\psi$ & an allocation & Section~\ref{sec:intro} \\
+$\nodef$ & the value of $\psi$ on a null set of sites where it is undefined & Section~\ref{sec:intro} \\
+$G_b$ & the graph on $\Xi$ joining centres at distance at most $b$ & Section~\ref{sec:intro} \\
+$B(z,r)$, $\overline B(z,r)$ & open and closed balls & Section~\ref{sec:intro} \\
+$\omega_d$ & the volume of the unit ball of $\R^d$ & Section~\ref{sec:intro} \\
+$\#E$ & the number of elements of $E$ & Section~\ref{sec:intro} \\
+$N(r)$ & $\#(\Xi\cap B(0,r))$ & Section~\ref{sec:intro} \\
+$g_x$, $h_\xi$ & the site and centre comparison functions & Section~\ref{sec:prelim} \\
+$W$ & sites equidistant from two distinct centres & Section~\ref{sec:prelim} \\
+$Z$ & a null set of exceptional sites & Lemma~\ref{lem:sandwich} \\
+$s$, $c$ & the site-preferred and the centre-preferred stable allocations & Lemma~\ref{lem:extremal} \\
+$S_v$, $C_v$ & the territories of $v$ under $s$ and under $c$ & Section~\ref{sec:graph} \\
+$A_v$, $B_v$ & $S_v\setminus C_v$ and $C_v\setminus S_v$ & Section~\ref{sec:graph} \\
+$Q(u,v)$, $q(u,v)$ & $C_u\cap S_v$ and its measure, the capacity of the edge $(u,v)$ & Section~\ref{sec:graph} \\
+$\Gamma$ & the directed graph of edges with positive capacity & Section~\ref{sec:graph} \\
+$T_v$ & the radius of the territory of $v$ under $c$ & Section~\ref{sec:graph} \\
+$(\rho,v_0)$, $m$ & a fixed edge of $\Gamma$ and its capacity & Section~\ref{sec:graph} \\
+$V_0$ & centres reachable from $v_0$ in $\Gamma$ & Section~\ref{sec:graph} \\
+$H$ & the reachable disagreement graph & Section~\ref{sec:graph} \\
+$R$ & $T_{v_0}$, a bound for every $T_v$ with $v\in V_0$ & Section~\ref{sec:graph} \\
+$\ell$ & a bound for the lengths of the edges of $H$ & Section~\ref{sec:graph} \\
+$D$ & a bound for the degrees in $H$ & Lemma~\ref{lem:packing} \\
+$N_H(r)$ & the number of vertices of $H$ in $B(0,r)$ & Lemma~\ref{lem:packing} \\
+$K$ & the bound on capacity sums along paths & Proposition~\ref{prop:HHP} \\
+$a$ & the starting vertex of the walk & Lemma~\ref{lem:recurrent} \\
+$\Pi_j$ & the cutsets in the Nash-Williams criterion & Lemma~\ref{lem:recurrent} \\
+$J_k$ & the indices $j$ with $2^k\le r_j<2^{k+1}$ & Lemma~\ref{lem:recurrent} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{99}
+\bibitem{CPPR} S.~Chatterjee, R.~Peled, Y.~Peres and D.~Romik, \emph{Gravitational allocation to Poisson points}, Ann.\ of Math.\ (2) \textbf{172} (2010), 617--671. doi:10.4007/annals.2010.172.617.
+\bibitem{FPV} M.~V.~Freire, S.~Popov and M.~Vachkovskaia, \emph{Percolation for the stable marriage of Poisson and Lebesgue}, Stochastic Process.\ Appl.\ \textbf{117} (2007), 514--525. doi:10.1016/j.spa.2006.09.002.
+\bibitem{GS} D.~Gale and L.~S.~Shapley, \emph{College admissions and the stability of marriage}, Amer.\ Math.\ Monthly \textbf{69} (1962), 9--15. doi:10.1080/00029890.1962.11989827.
+\bibitem{HMK} M.~O.~Haji-Mirsadeghi and A.~Khezeli, \emph{Stable transports between stationary random measures}, Electron.\ J.\ Probab.\ \textbf{21} (2016), paper no.~51, 1--25. doi:10.1214/16-EJP4237.
+\bibitem{HHP} C.~Hoffman, A.~E.~Holroyd and Y.~Peres, \emph{A stable marriage of Poisson and Lebesgue}, Ann.\ Probab.\ \textbf{34} (2006), 1241--1272. doi:10.1214/009117906000000098.
+\bibitem{HHP09} C.~Hoffman, A.~E.~Holroyd and Y.~Peres, \emph{Tail bounds for the stable marriage of Poisson and Lebesgue}, Canad.\ J.\ Math.\ \textbf{61} (2009), 1279--1299. doi:10.4153/CJM-2009-060-7.
+\bibitem{HP05} A.~E.~Holroyd and Y.~Peres, \emph{Extra heads and invariant allocations}, Ann.\ Probab.\ \textbf{33} (2005), 31--52. doi:10.1214/009117904000000603.
+\bibitem{Lyons} T.~Lyons, \emph{A simple criterion for transience of a reversible Markov chain}, Ann.\ Probab.\ \textbf{11} (1983), 393--402. doi:10.1214/aop/1176993604.
+\bibitem{LyonsPeres} R.~Lyons and Y.~Peres, \emph{Probability on Trees and Networks}, Cambridge University Press, New York, 2016. doi:10.1017/9781316672815.
+\bibitem{NW} C.~St.~J.~A.~Nash-Williams, \emph{Random walk and electric currents in networks}, Proc.\ Cambridge Philos.\ Soc.\ \textbf{55} (1959), 181--194. doi:10.1017/S0305004100033879.
+\bibitem{Woess} W.~Woess, \emph{Random Walks on Infinite Graphs and Groups}, Cambridge University Press, Cambridge, 2000. doi:10.1017/CBO9780511470967.
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026. doi:10.5281/zenodo.24150837.
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/9eb386da3dc67da2fbb4a78a9d97baaaa1f79b9a/papers/math-brain-2026-10-24}.
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, commit 5629e64, \url{https://github.com/yspennstate/brain-framework-public/tree/5629e644cdd510173ae97e9aa92642dabd22dc57}.
+\end{thebibliography}
+\end{document}
